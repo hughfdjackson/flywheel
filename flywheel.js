@@ -1,8 +1,6 @@
 !function (context) {
     var flywheel = function(callback){
         
-//--------- BOILERPLATE ----------------//
-        
         // paul irish shim 
         var req_anim_frame = (function(){
           return  window.requestAnimationFrame   || 
@@ -15,14 +13,16 @@
               }
         })()        
         
+        function loop(timestamp){
+            var time_delta = timestamp
         
-//------------- LOGIC ----------------------//
-
-        !function loop(){
-            callback()
+            callback(time_delta, this)
             req_anim_frame(loop)
         }()
-
+        req_anim_frame(loop)
     }
+    
+    
+    
     context['flywheel'] = flywheel
 }(this)
