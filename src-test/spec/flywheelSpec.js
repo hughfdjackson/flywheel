@@ -6,15 +6,15 @@ describe("flywheel", function(){
             var e = 0;
             
             flywheel(function(){
-                e += 1       
+                e += 1      
             }).start()
 
             waitsFor(function() {
-              return e == 100
+              return e > 100
             }, "flywheel to reach 100 eterations", 5000);
 
             runs(function () {
-                expect(e).toEqual(100)
+                expect(e).toBeGreaterThan(100)
             })
 
         })
