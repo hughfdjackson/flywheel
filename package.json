@@ -1,7 +1,7 @@
 {
   "name": "flywheel",
   "description": "Engine looper for enderjs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "keywords": ["game", "animation", "engine", "loop", "ender"],
   "homepage": "https://github.com/hughfdjackson/flywheel",
   "authors": ["Hugh FD Jackson"],
@@ -9,6 +9,6 @@
     "type": "git",
     "url": "git@github.com:hughfdjackson/flywheel.git"
   },
-  "main": "./flywheel.js",
-  "ender": "./ender.js"
+  "main": "src/flywheel.js",
+  "ender": "src/ender.js"
 }
