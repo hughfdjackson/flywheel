@@ -105,7 +105,9 @@ describe("flywheel", function(){
             
             fly.callback = function(){
                 e += 5
-            }).step()
+            }
+            
+            fly.step()
             
             expect(e+5).toEqual(e)
                         
