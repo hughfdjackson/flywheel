@@ -65,8 +65,8 @@
             },
             
             step: function(){
-                if ( !this._continue_spinning_flywheel ) 
-                    this._spin_flywheel()
+                this._continue_spinning_flywheel = false
+                this._spin_flywheel()
                 return this                     
             },
 

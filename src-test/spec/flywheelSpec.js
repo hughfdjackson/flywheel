@@ -110,7 +110,7 @@ describe("flywheel", function(){
             
             fly.step()
             
-            expect(e+5).toEqual(e)
+            expect(ecopy+5).toEqual(e)
                         
         
         })
