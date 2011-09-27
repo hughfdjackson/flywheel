@@ -34,7 +34,8 @@
             // main spin function
             _spin_flywheel: function spin(timestamp){
                 var time_delta = timestamp - this._last_spin_timestamp,
-                    capped_time_delta
+                    capped_time_delta,
+                    context = this;
             
                 ( time_delta < this._max_frame_duration )? capped_time_delta = time_delta
                 : capped_time_delta = this._max_frame_duration
@@ -43,7 +44,10 @@
                 
                 this._last_spin_timestamp = timestamp
                 
-                if ( this._continue_spinning_flywheel ) frame(spin.bind(this))
+                if ( this._continue_spinning_flywheel ) frame(function(){
+                    spin.apply(context, arguments)
+                })
+
             },
             
 
