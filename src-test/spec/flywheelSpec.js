@@ -101,6 +101,7 @@ describe("flywheel", function(){
         
         it("should let you swap callback whenever", function(){
         
+            e = 0
             ecopy = e
             
             fly.callback = function(){
