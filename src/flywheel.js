@@ -17,52 +17,59 @@
           }
       }()
 
-
-    var flywheel = function(callback, framerate_cap){
-
-        // per-flywheel call variables
-        var continue_spinning_flywheel = true,
-            last_spin_timestamp = +new Date()
-
-        // parameters
-        var max_frame_length                    
-        if ( framerate_cap !== undefined ) max_frame_length = 1000/framerate_cap
-            else max_frame_length = 1000/30
-            
-        // function to be eterated
-        function spin_flywheel(timestamp){
-            
-            var time_delta = timestamp - last_spin_timestamp,
-                capped_time_delta
+    , flywheel = function(callback, framerate_cap){
         
-            ( time_delta < max_frame_length )? capped_time_delta = time_delta
-            : capped_time_delta = max_frame_length
+        // convert from framerate_cap to frame duration
+        var max_frame_duration
+        ( framerate_cap !== undefined )? max_frame_duration = 1000/framerate_cap
+        : max_frame_duration = 1000/30
 
-            callback(capped_time_delta, user_controller)
+        // object to be returned
+        var obj = {
+
+            _last_spin_timestamp: +new Date(),
+            _continue_spinning_flywheel: false,
+            _max_frame_duration: max_frame_duration,
             
-            last_spin_timestamp = timestamp
+            // main spin function
+            _spin_flywheel: function spin(timestamp){
+                var time_delta = timestamp - this._last_spin_timestamp,
+                    capped_time_delta
             
-            if ( continue_spinning_flywheel ) frame(spin_flywheel)
+                ( time_delta < this._max_frame_duration )? capped_time_delta = time_delta
+                : capped_time_delta = this._max_frame_duration
+                
+                this.callback(capped_time_delta, this)
+                
+                this._last_spin_timestamp = timestamp
+                
+                if ( this._continue_spinning_flywheel ) frame(spin.bind(this))
+            },
+            
+
+            
+            // function to be eterated
+            start: function(){
+                this._continue_spinning_flywheel = true
+                this._spin_flywheel()
+                return this
+            },
+            
+            stop: function(){
+                this._continue_spinning_flywheel = false
+                return this
+            },
+            
+            step: function(){
+                if ( !this._continue_spinning_flywheel ) 
+                    this._spin_flywheel()
+                return this                     
+            },
+
+            callback: callback
         }
 
-        // utility object to let the user manipulate the eteration
-        var user_controller = {
-                start: function(){
-                    continue_spinning_flywheel = true
-                    spin_flywheel()
-                    return this
-                },
-                stop: function(){
-                    continue_spinning_flywheel = false
-                    return this
-                },
-                step: function(){
-                    if ( !continue_spinning_flywheel ) spin_flywheel()
-                    return this                     
-                }
-        }
-
-        return user_controller
+        return obj
     }
 
     context["flywheel"] = flywheel
