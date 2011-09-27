@@ -50,8 +50,6 @@
 
             },
             
-
-            
             // function to be eterated
             start: function(){
                 this._continue_spinning_flywheel = true
