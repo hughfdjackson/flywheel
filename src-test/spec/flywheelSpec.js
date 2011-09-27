@@ -50,6 +50,24 @@ describe("flywheel", function(){
             
         })
         
+        
+            // I have reservations about this test, since it's js measuring
+            // js.  
+         it("timeDelta should be within 10% of the timeout time", function(){
+            
+            var total_time = 0,
+                fly = flywheel(function(timeDelta){
+                    total_time += timeDelta            
+                }).start()
+            
+            waits(1000)
+                            
+            runs(function(){
+                expect(total_time).toBeGreaterThan(1000 - 100)
+                expect(total_time).toBeLessThan(1000 + 100)
+            })
+        })
+        
     })
     
     describe("controls", function(){
