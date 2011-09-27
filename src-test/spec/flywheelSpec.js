@@ -98,5 +98,18 @@ describe("flywheel", function(){
             expect(e).toEqual(4)
         
         })
+        
+        it("should let you swap callback whenever", function(){
+        
+            ecopy = e
+            
+            fly.callback = function(){
+                e += 5
+            }).step()
+            
+            expect(e+5).toEqual(e)
+                        
+        
+        })
     });
 });
