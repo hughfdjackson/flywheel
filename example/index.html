@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>Flywheel Example</title>
+<style type="text/css">
+
+body {
+    background-color: #000
+}
+
+canvas {
+    display: block;
+    margin: 100px auto;
+    background-color: #fff
+}
+
+</style>
+</head>
+<body>
+
+<canvas id="main_canvas" width="500" height="300"></canvas>
+
+
+<script type="text/javascript" src="../src/flywheel.js"></script>
+
+<script type="text/javascript">
+    // get our canvas element and make a 2d context for it
+    var canvas = document.getElementById("main_canvas"),
+        context = canvas.getContext("2d"),
+        
+    // make an object with a simple draw and update function
+        bouncing_ball = {
+            x: canvas.width/2,
+            y: 0,
+            yVel: 1,    // the velocity of the ball on the x and y axis
+            xVel: 100,
+            gravity: 1000, // num pix per second downwards acceleration
+            draw: function(){
+                // clear the canvas and set circle colour
+                context.clearRect(0, 0, canvas.width, canvas.height)
+
+                // create circle shape                
+                context.beginPath();
+                context.arc(this.x, this.y, 50, 0, Math.PI*2, true);
+                context.closePath();
+                
+                // draw it to the canvas
+                context.fill();
+            },
+            update: function(time_delta){
+                // move the ball down towards the 'floor'
+                this.yVel += this.gravity * time_delta/1000
+                this.y += this.yVel * time_delta/1000
+                                    
+                // if we've hit the 'floor', bounce
+                if ( this.y > canvas.height - 50 ){ 
+                    this.yVel = -this.yVel * 0.9                
+                    this.y = canvas.height - 50
+                }
+                
+                // move the ball across the scene
+                this.x += this.xVel * time_delta/1000
+                
+                // emulate friction with the floor
+                if ( this.y >= canvas.height - 50 && this.xVel != 0 ) {
+                    
+                    var deceleration_scalar = (1 * time_delta/1000)
+                    if ( this.xVel > 0 ) this.xVel -= this.xVel * deceleration_scalar
+                        else this.xVel += this.xVel * deceleration_scalar
+                                  
+                }
+                  
+                // if we've hit the 'walls'
+                if ( this.x > canvas.width - 50 ) {
+                    this.xVel = -this.xVel * 0.92
+                    this.x = canvas.width - 50
+                } else if ( this.x < 50 ) {
+                    this.xVel = -this.xVel * 0.92
+                    this.x = 50           
+                }
+            }
+        }
+        
+        // loop it using flywheel
+        flywheel(function(time_delta){
+            bouncing_ball.update(time_delta)
+            bouncing_ball.draw()
+        }).start()
+</script>
+</body>
+</html>

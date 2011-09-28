@@ -2,10 +2,13 @@
 
 Flywheel is a micro-lib (maybe even micro-micro lib) for making animation- and game-loops, implementing HTML5's RequestAnimationFrame while maintaining backwards compatibility.
 
+It's available standalone (just use src/flywheel.js), or via ender:
+
+    ender build flywheel
 
 # API
 
-
+This API section is going to focus on the non-ender API.  Note that the only difference is that, with ender, flywheel is written $.flywheel.
 
 
 
