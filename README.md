@@ -53,6 +53,7 @@ See [the example](http://hughfdjackson.github.com/flywheel/example/) for a demo 
 ## Test suite and compatability
 
 The src-test directory holds a test-suite designed ensure that flywheel is working properly.  The following browsers have been used with this test suite, and passed:
+
 * Opera 11
 * Safari 5
 * Firefox 4-6
