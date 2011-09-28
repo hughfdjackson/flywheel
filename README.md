@@ -38,10 +38,11 @@ This API section is going to focus on the non-ender API.  Note that the only dif
 
 #### setting a framerate-cap
 
+In times of exceptional load, or when a user clicks away from the window and back again, the time difference between two frames can be large enough to effect any physics logic negatively.  Capping the framerate helps with this by substituting a fake value for any long delays.
+
     var fw = flywheel(function(no_less_than_30_frames_a_second){
     
-    ), 30)  // 
-    
+    ), 40) // if the framerate drops below 40fps, cap it
     
 
 ## Example Implementation
@@ -51,5 +52,11 @@ See [the example](http://hughfdjackson.github.com/flywheel/example/) for a demo 
 
 ## Test suite and compatability
 
+The src-test directory holds a test-suite designed ensure that flywheel is working properly.  The following browsers have been used with this test suite, and passed:
+* Opera 11
+* Safari 5
+* Firefox 4-6
+* IE 6-9
+* Chrome 13
 
 You're very welcome to [test it yourself](http://hughfdjackson.github.com/flywheel/src-test/SpecRunner.html).  If you're feeling particularly generous, you could even drop me a line to tell me if there are any problems, or if there's another webbrowser I can add to the compatibility list!
