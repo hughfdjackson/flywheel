@@ -10,15 +10,39 @@ It's available standalone (just use src/flywheel.js), or via ender:
 
 This API section is going to focus on the non-ender API.  Note that the only difference is that, with ender, flywheel is written $.flywheel.
 
-### setting up a function to loop
+### Basic Usage
 
-    flywheel(function(time_elapsed_since_last_frame){
-        console.log(time_elapsed_since_last_frame)
-    })
+#### setting up a function to loop:
+
+    // Sets up flywheel to report the time difference between this frame and the last
+    var fw = flywheel(function(time_elapsed_since_last_frame){
+                        console.log(time_elapsed_since_last_frame)
+                    })
 
 
+#### start it spinning:
+
+    fw.start()
     
+    
+#### stop it again:
+    
+    fw.stop()
+    
+#### step through a single frame:
 
+    fw.step()
+    
+    
+### Extra Options
+
+#### setting a framerate-cap
+
+    var fw = flywheel(function(no_less_than_30_frames_a_second){
+    
+    ), 30)  // 
+    
+    
 
 ## Example Implementation
 
