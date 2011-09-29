@@ -19,57 +19,59 @@
 
     , flywheel = function(callback, framerate_cap){
         
+       
         // convert from framerate_cap to frame duration
-        var max_frame_duration
+        var max_frame_duration,
+            _last_spin_timestamp = +new Date(),
+            _continue_spinning_flywheel = false;
+            
         ( framerate_cap !== undefined )? max_frame_duration = 1000/framerate_cap
         : max_frame_duration = 1000/30
 
         // object to be returned
         var obj = {
 
-            _last_spin_timestamp: +new Date(),
-            _continue_spinning_flywheel: false,
             _max_frame_duration: max_frame_duration,
-            
-            // main spin function
-            _spin_flywheel: function spin(timestamp){
-                var time_delta = timestamp - this._last_spin_timestamp,
-                    capped_time_delta,
-                    context = this;
-            
-                ( time_delta < this._max_frame_duration )? capped_time_delta = time_delta
-                : capped_time_delta = this._max_frame_duration
-                
-                this.callback(capped_time_delta, this)
-                
-                this._last_spin_timestamp = timestamp
-                
-                if ( this._continue_spinning_flywheel ) frame(function(){
-                    spin.apply(context, arguments)
-                })
-
-            },
             
             // function to be eterated
             start: function(){
-                this._continue_spinning_flywheel = true
-                this._spin_flywheel()
+                _continue_spinning_flywheel = true
+                _spin_flywheel()
                 return this
             },
             
             stop: function(){
-                this._continue_spinning_flywheel = false
+                _continue_spinning_flywheel = false
                 return this
             },
             
             step: function(){
-                this._continue_spinning_flywheel = false
-                this._spin_flywheel()
+                _continue_spinning_flywheel = false
+                _spin_flywheel()
                 return this                     
             },
 
             callback: callback
         }
+
+         // main spin function
+        var _spin_flywheel = function spin(timestamp){
+                var time_delta = timestamp - _last_spin_timestamp,
+                    capped_time_delta,
+                    context = obj;
+            
+                ( time_delta < obj._max_frame_duration )? capped_time_delta = time_delta
+                : capped_time_delta = obj._max_frame_duration
+                
+                obj.callback(capped_time_delta, obj)
+                
+                _last_spin_timestamp = timestamp
+                
+                if ( _continue_spinning_flywheel ) frame(function(timestamp){
+                    _spin_flywheel(timestamp)
+                })
+
+            }
 
         return obj
     }
