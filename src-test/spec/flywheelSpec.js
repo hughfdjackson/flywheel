@@ -122,9 +122,9 @@ describe("flywheel", function(){
             e = 0
             ecopy = e
             
-            fly.callback = function(){
+            fly.set_callback(function(){
                 e += 5
-            }
+            })
             
             fly.step()
             

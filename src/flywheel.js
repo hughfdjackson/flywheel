@@ -10,22 +10,22 @@
           context.mozRequestAnimationFrame    ||
           context.oRequestAnimationFrame      ||
           context.msRequestAnimationFrame     ||
-          function (callback) {
+          function ($callback) {
             context.setTimeout(function () {
-              callback(+new Date())
+              $callback(+new Date())
             }, 10)
           }
       }()
 
-    , flywheel = function(callback, framerate_cap){
+    , flywheel = function($callback, $framerate_cap){
         
        
-        // convert from framerate_cap to frame duration
+        // convert from $framerate_cap to frame duration
         var max_frame_duration,
             _last_spin_timestamp = +new Date(),
             _continue_spinning_flywheel = false;
             
-        ( framerate_cap !== undefined )? max_frame_duration = 1000/framerate_cap
+        ( $framerate_cap !== undefined )? max_frame_duration = 1000/$framerate_cap
         : max_frame_duration = 1000/30
 
         // object to be returned
@@ -51,26 +51,26 @@
                 return this                     
             },
 
-            callback: callback
+            set_callback: function(callback){
+                $callback = callback
+            }
         }
 
          // main spin function
         var _spin_flywheel = function spin(timestamp){
                 var time_delta = timestamp - _last_spin_timestamp,
-                    capped_time_delta,
-                    context = obj;
+                    capped_time_delta;
             
                 ( time_delta < obj._max_frame_duration )? capped_time_delta = time_delta
                 : capped_time_delta = obj._max_frame_duration
                 
-                obj.callback(capped_time_delta, obj)
+                $callback(capped_time_delta, obj)
                 
                 _last_spin_timestamp = timestamp
                 
                 if ( _continue_spinning_flywheel ) frame(function(timestamp){
-                    _spin_flywheel(timestamp)
+                    spin(timestamp)
                 })
-
             }
 
         return obj
