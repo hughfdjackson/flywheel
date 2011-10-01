@@ -48,7 +48,7 @@ In times of exceptional load, or when a user clicks away from the window and bac
     // tries to write "blip" 60 times a second, where possible
     var fw.set_callback(function(time_delta){
         console.log("blip")     
-    },)
+    })
 
 
 ### Feature Requests
