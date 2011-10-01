@@ -67,10 +67,10 @@ If you have any suggestions, feel free to add a ticket, or tweet at [@hughfdjack
 
 The src-test directory holds a test-suite designed ensure that flywheel is working properly.  The following browsers have been used with this test suite, and passed:
 
-*Opera 11
-*Safari 5
-*Firefox 4-6
-*IE 6-9
-*Chrome 13
+* Opera 11
+* Safari 5
+* Firefox 4-6
+* IE 6-9
+* Chrome 13
 
 You're very welcome to [test it yourself](http://hughfdjackson.github.com/flywheel/src-test/SpecRunner.html).  If you're feeling particularly generous, you could even drop me a line to tell me if there are any problems, or if there's another webbrowser I can add to the compatibility list!
