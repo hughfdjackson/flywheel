@@ -51,7 +51,7 @@ In times of exceptional load, or when a user clicks away from the window and bac
     },)
 
 
-#### Feature requests
+### Feature Requests
 
 If you have any suggestions, feel free to add a ticket, or tweet at @hughfdjackson.
 
