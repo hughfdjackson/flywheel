@@ -6,6 +6,12 @@ It's available standalone (just use src/flywheel.js), or via ender:
 
     ender build flywheel
 
+
+## Example
+
+See [the example](http://hughfdjackson.github.com/flywheel/example/) for a demo usage of flywheel.
+
+
 ## API
 
 This API section is going to focus on the non-ender API.  If you're using ender, you can simply use `var flywheel = require("flywheel")`
@@ -56,10 +62,6 @@ In times of exceptional load, or when a user clicks away from the window and bac
 If you have any suggestions, feel free to add a ticket, or tweet at [@hughfdjackson](http://twitter.com/#!/hughfdjackson).
 
 
-## Example
-
-See [the example](http://hughfdjackson.github.com/flywheel/example/) for a demo usage of flywheel.
-    
 
 ## Test suite and compatability
 
