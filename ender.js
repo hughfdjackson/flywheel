@@ -61,7 +61,7 @@
 
   aug(ender, {
       _VERSION: '0.3.4'
-    , fn: context.$ && context.$.fn || {} // for easy compat to jQuery plugins
+    , fn: boosh // for easy compat to jQuery plugins
     , ender: function (o, chain) {
         aug(chain ? boosh : ender, o)
       }
@@ -108,52 +108,70 @@
             context.mozRequestAnimationFrame    ||
             context.oRequestAnimationFrame      ||
             context.msRequestAnimationFrame     ||
-            function (callback) {
+            function ($callback) {
               context.setTimeout(function () {
-                callback(+new Date())
+                $callback(+new Date())
               }, 10)
             }
         }()
   
-  
-      var flywheel = function(callback, framerate_cap){
-  
-          // internal vars        
-          var continue_spinning_flywheel = true,
-              last_spin_timestamp = +new Date(),
-              user_controller = {
-                  start: function(){
-                      continue_spinning_flywheel = true
-                      spin_flywheel()
-                      return this
-                  },
-                  stop: function(){
-                      continue_spinning_flywheel = false
-                      return this
-                  }
-              }
-  
-          // parameters
-          var max_frame_length                    
-          if ( framerate_cap !== undefined ) max_frame_length = 1000/framerate_cap
-              else max_frame_length = 1000/30
-              
-          function spin_flywheel(timestamp){
-              
-              var time_delta = timestamp - last_spin_timestamp,
-                  capped_time_delta
+      , flywheel = function($callback, $framerate_cap){
           
-              ( time_delta < max_frame_length )? capped_time_delta = time_delta
-              : capped_time_delta = max_frame_length
+         
+          // convert from $framerate_cap to frame duration
+          var max_frame_duration,
+              _last_spin_timestamp = +new Date(),
+              _continue_spinning_flywheel = false;
+              
+          ( $framerate_cap !== undefined )? max_frame_duration = 1000/$framerate_cap
+          : max_frame_duration = 1000/30
   
-              callback(capped_time_delta, user_controller)
+          // object to be returned
+          var obj = {
+  
+              _max_frame_duration: max_frame_duration,
               
-              last_spin_timestamp = timestamp
+              // function to be eterated
+              start: function(){
+                  _continue_spinning_flywheel = true
+                  _spin_flywheel()
+                  return this
+              },
               
-              if ( continue_spinning_flywheel ) frame(spin_flywheel)
+              stop: function(){
+                  _continue_spinning_flywheel = false
+                  return this
+              },
+              
+              step: function(){
+                  _continue_spinning_flywheel = false
+                  _spin_flywheel()
+                  return this                     
+              },
+  
+              set_callback: function(callback){
+                  $callback = callback
+              }
           }
   
-          return user_controller.start()
+           // main spin function
+          var _spin_flywheel = function spin(timestamp){
+                  var time_delta = timestamp - _last_spin_timestamp,
+                      capped_time_delta;
+              
+                  ( time_delta < obj._max_frame_duration )? capped_time_delta = time_delta
+                  : capped_time_delta = obj._max_frame_duration
+                  
+                  $callback(capped_time_delta, obj)
+                  
+                  _last_spin_timestamp = timestamp
+                  
+                  if ( _continue_spinning_flywheel ) frame(function(timestamp){
+                      spin(timestamp)
+                  })
+              }
+  
+          return obj
       }
   
       context["flywheel"] = flywheel
@@ -163,9 +181,9 @@
   provide("flywheel", module.exports);
 
   !function($){
-      $.ender({
-          flywheel: flywheel
-      })
+  
+      provide("flywheel", flywheel)
+  
   }(ender)
   
 

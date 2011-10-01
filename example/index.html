@@ -20,12 +20,14 @@ canvas {
 <canvas id="main_canvas" width="500" height="300"></canvas>
 
 
-<script type="text/javascript" src="../src/flywheel.js"></script>
+<script type="text/javascript" src="../ender.js"></script>
 
 <script type="text/javascript">
     // get our canvas element and make a 2d context for it
     var canvas = document.getElementById("main_canvas"),
         context = canvas.getContext("2d"),
+        // get flywheel out from the package
+        flywheel = require("flywheel"),
         
     // make an object with a simple draw and update function
         bouncing_ball = {

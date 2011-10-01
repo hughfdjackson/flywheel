@@ -8,8 +8,7 @@ It's available standalone (just use src/flywheel.js), or via ender:
 
 ## API
 
-This API section is going to focus on the non-ender API.  Note that the only difference is that, with ender, flywheel is written $.flywheel.
-
+This API section is going to focus on the non-ender API.  If you're using ender, you can simple use `var flywheel = require("flywheel")`
 ### Basic Usage
 
 #### setting up a function to loop:

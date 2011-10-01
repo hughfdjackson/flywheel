@@ -9,6 +9,6 @@
     "type": "git",
     "url": "git@github.com:hughfdjackson/flywheel.git"
   },
-  "main": "src/flywheel.js",
-  "ender": "src/ender.js"
+  "main": "./src/flywheel.js",
+  "ender": "./src/ender.js"
 }

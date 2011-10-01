@@ -1,5 +1,5 @@
 !function($){
-    $.ender({
-        flywheel: flywheel
-    })
+
+    provide("flywheel", flywheel)
+
 }(ender)
