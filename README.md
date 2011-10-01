@@ -8,7 +8,7 @@ It's available standalone (just use src/flywheel.js), or via ender:
 
 ## API
 
-This API section is going to focus on the non-ender API.  If you're using ender, you can simple use `var flywheel = require("flywheel")`
+This API section is going to focus on the non-ender API.  If you're using ender, you can simply use `var flywheel = require("flywheel")`
 ### Basic Usage
 
 #### setting up a function to loop:
@@ -43,8 +43,20 @@ In times of exceptional load, or when a user clicks away from the window and bac
     
     ), 40) // if the framerate drops below 40fps, cap it
     
+#### changing the callback
 
-## Example Implementation
+    // tries to write "blip" 60 times a second, where possible
+    var fw.set_callback(function(time_delta){
+        console.log("blip")     
+    },)
+
+
+#### Feature requests
+
+If you have any suggestions, feel free to add a ticket, or tweet at @hughfdjackson.
+
+
+## Example
 
 See [the example](http://hughfdjackson.github.com/flywheel/example/) for a demo usage of flywheel.
     
