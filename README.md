@@ -53,7 +53,7 @@ In times of exceptional load, or when a user clicks away from the window and bac
 
 ### Feature Requests
 
-If you have any suggestions, feel free to add a ticket, or tweet at @hughfdjackson.
+If you have any suggestions, feel free to add a ticket, or tweet at [@hughfdjackson](http://twitter.com/#!/hughfdjackson).
 
 
 ## Example
