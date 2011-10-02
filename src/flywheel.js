@@ -68,7 +68,7 @@
             
             step: function(){
                 _continue_spinning_flywheel = false
-                _spin_flywheel(+new Date())
+                _spin_flywheel()
                 return this                     
             },
 
