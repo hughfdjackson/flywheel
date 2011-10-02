@@ -30,7 +30,7 @@ describe("flywheel", function(){
                     time_delta = timeDelta
                 }).step().step()
                 
-            expect(time_delta).toEqual(fly._max_frame_duration)
+            expect(time_delta).toEqual(1000/30)
         
         
         })
