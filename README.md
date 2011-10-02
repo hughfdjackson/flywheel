@@ -45,14 +45,12 @@ This API section is going to focus on the non-ender API.  If you're using ender,
 
 In times of exceptional load, or when a user clicks away from the window and back again, the time difference between two frames can be large enough to effect any physics logic negatively.  Capping the framerate helps with this by substituting a fake value for any long delays.  There is a default cap of 30fps.
 
-When initially defining:
-
-    fw = flywheel(function(time_delta){
+	// in setup
+	fw = flywheel(function(time_delta){
     	console.log(time_delta)
     ), 40) // if the framerate drops below 40fps, cap it
     
-Thereafter:
-
+	// after setup
 	fw.set\_framerate\_cap(20)	// if the framerate drops below 20fps, cap it
 	
 #### changing the callback
