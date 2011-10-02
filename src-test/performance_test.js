@@ -285,12 +285,10 @@
                   	!function(){}(timestamp)
                 })
             }
-        
 
         // object to be returned
-        return this = {
+        return {
             
-            // function to be eterated
             start: function(){
                 _continue_spinning_flywheel = true
                 _spin_flywheel()

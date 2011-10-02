@@ -160,16 +160,16 @@ describe("flywheel", function(){
 		
 		
 
-		it("should let you step with a fake time delta", function(){
+		it("should let you step with a fake time delta bigger than the framerate cap", function(){
             var time_delta,
                 fly = flywheel(function(timeDelta){
                     time_delta = timeDelta
                 })
 			
 		    
-			fly.set_framerate_cap(20).step(10).step_by(10)
+			fly.set_framerate_cap(20).step(10).step_by(100)
 				
-			expect(time_delta).toEqual(10)
+			expect(time_delta).toEqual(100)
 			
 		})
 		

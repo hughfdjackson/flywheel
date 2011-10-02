@@ -73,9 +73,14 @@
             },
 
 		 	step_by: function(fake_time_delta){
+				var real_max_frame_duration = _max_frame_duration
+				
                 _continue_spinning_flywheel = false
+				_max_frame_duration = fake_time_delta
 				_last_spin_timestamp = +new Date() - fake_time_delta
+				
 				_spin_flywheel(_last_spin_timestamp + fake_time_delta)
+				_max_frame_duration = real_max_frame_duration
 				return this
 			},
 			
