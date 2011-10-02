@@ -72,12 +72,12 @@ describe("flywheel", function(){
     
     describe("controls", function(){
 
-        var e = 0,
-            fly = flywheel(function(){
-                e += 1
-                })
-
         it("should stop and restart when told", function(){
+			var e = 0,
+				fly = flywheel(function(){
+	                e += 1
+	                })
+	            
             fly.start()
 
             waitsFor(function(){
@@ -104,7 +104,11 @@ describe("flywheel", function(){
         
         it("should be able to step through frames", function(){
         
-            e = 0
+			var e = 0,
+				fly = flywheel(function(){
+	                e += 1
+	                })
+	            
             
             fly.step()  // Mah step's so fly
             expect(e).toEqual(1)
@@ -118,8 +122,12 @@ describe("flywheel", function(){
         })
         
         it("should let you swap callback whenever", function(){
-        
-            e = 0
+        	
+			var e = 0,
+				fly = flywheel(function(){
+	                e += 1
+	                })
+	            
             ecopy = e
             
             fly.set_callback(function(){
@@ -132,5 +140,38 @@ describe("flywheel", function(){
                         
         
         })
+
+		it("should let you redefine framerate cap whenever", function(){
+            var time_delta,
+                fly = flywheel(function(timeDelta){
+                    var len = 100000
+                    while ( len ) {
+                        len--
+                    }
+                    time_delta = timeDelta
+                })
+			
+		    
+			fly.set_framerate_cap(20).step().step()
+				
+			expect(time_delta).toEqual(1000/20)
+			
+		})
+		
+		
+
+		it("should let you step with a fake time delta", function(){
+            var time_delta,
+                fly = flywheel(function(timeDelta){
+                    time_delta = timeDelta
+                })
+			
+		    
+			fly.set_framerate_cap(20).step(10).step_by(10)
+				
+			expect(time_delta).toEqual(10)
+			
+		})
+		
     });
 });

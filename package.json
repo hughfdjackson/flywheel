@@ -1,7 +1,7 @@
 {
   "name": "flywheel",
-  "description": "Engine looper for enderjs",
-  "version": "0.9.0",
+  "description": "Game/Animation loop microlib/utility for the clientside.",
+  "version": "0.9.1",
   "keywords": ["game", "animation", "engine", "loop", "ender"],
   "homepage": "https://github.com/hughfdjackson/flywheel",
   "authors": ["Hugh FD Jackson"],
