@@ -1,4 +1,4 @@
-!function (context) {
+!function (context, undefined) {
     
     // poly-fill copy-pasted from https://github.com/ded/morpheus/blob/master/src/morpheus.js
     var frame = function () {
@@ -35,8 +35,8 @@
                 _last_spin_timestamp = timestamp
                 
                 // cap the time_delta to be passed to the callback as appropriate
-                ;(time_delta < _max_frame_duration)? capped_time_delta = time_delta
-                : capped_time_delta = _max_frame_duration
+                if ( time_delta < _max_frame_duration ) capped_time_delta = time_delta
+                else capped_time_delta = _max_frame_duration
                     
                 // set up the next spin
                 if ( _continue_spinning_flywheel ) frame(function(timestamp){
@@ -48,8 +48,8 @@
             }
 
         // convert the given framerate cap to a duration
-        ;( $framerate_cap !== undefined )?_set_max_frame_duration_by_framerate_cap($framerate_cap)
-        : _max_frame_duration = 1000/30
+        if ( $framerate_cap !== undefined ) _set_max_frame_duration_by_framerate_cap($framerate_cap)
+        else _max_frame_duration = 1000/30
 
 
         // return an API object, to let users manipulate the loop
@@ -57,7 +57,7 @@
             
             start: function(){
                 _continue_spinning_flywheel = true
-                _spin_flywheel()
+                _spin_flywheel(+new Date())
                 return this
             },
             
@@ -68,7 +68,7 @@
             
             step: function(){
                 _continue_spinning_flywheel = false
-                _spin_flywheel(+Date())
+                _spin_flywheel(+new Date())
                 return this                     
             },
 
