@@ -23,20 +23,29 @@
         var _max_frame_duration,
             _last_spin_timestamp = +new Date(),
             _continue_spinning_flywheel = false,
-                
+            _step_by = 1000/60,
+            
         // 'private methods'
             _set_max_frame_duration_by_framerate_cap = function(framerate_cap){
                  _max_frame_duration = 1000/framerate_cap
             },
             _spin_flywheel = function spin(timestamp){
-                var time_delta = timestamp - _last_spin_timestamp,
+                var time_delta,
                     capped_time_delta
             
-                _last_spin_timestamp = timestamp
+            
+                if ( timestamp !== undefined ) {
+                    time_delta  = timestamp - _last_spin_timestamp
+                    _last_spin_timestamp = timestamp
+                    
+                    // cap the framerate
+                    if ( time_delta < _max_frame_duration ) capped_time_delta = time_delta
+                    else  capped_time_delta = _max_frame_duration           
                 
-                // cap the time_delta to be passed to the callback as appropriate
-                if ( time_delta < _max_frame_duration ) capped_time_delta = time_delta
-                else capped_time_delta = _max_frame_duration
+                } else {
+                    _last_spin_timestamp = +new Date()
+                    capped_time_delta = _step_by
+                }
                     
                 // set up the next spin
                 if ( _continue_spinning_flywheel ) frame(function(timestamp){
@@ -57,7 +66,7 @@
             
             start: function(){
                 _continue_spinning_flywheel = true
-                _spin_flywheel(+new Date())
+                _spin_flywheel()
                 return this
             },
             
@@ -66,24 +75,18 @@
                 return this
             },
             
-            step: function(){
-                _continue_spinning_flywheel = false    
+            step: function(fake_time_delta){
+                
+                var cache_step_by = _step_by
+                
+                if ( fake_time_delta !== undefined ) _step_by = fake_time_delta
+                _continue_spinning_flywheel = false
                 _spin_flywheel()
                 
+                // re-instate intial _step_by value
+                _step_by = cache_step_by
+                
                 return this                     
-            },
-
-            step_by: function(fake_time_delta){
-                var real_max_frame_duration = _max_frame_duration,
-                    date = +new Date()
-                
-                _continue_spinning_flywheel = false
-                _max_frame_duration = fake_time_delta
-                _last_spin_timestamp = date - fake_time_delta
-                
-                _spin_flywheel(date)
-                _max_frame_duration = real_max_frame_duration
-                return this
             },
             
             set_callback: function(callback){
