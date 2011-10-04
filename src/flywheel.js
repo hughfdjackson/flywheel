@@ -30,28 +30,21 @@
                  _max_frame_duration = 1000/framerate_cap
             },
             _spin_flywheel = function spin(timestamp){
-                var time_delta,
+                var time_delta = timestamp - _last_spin_timestamp,
                     capped_time_delta
-            
-            
-                if ( timestamp !== undefined ) {
-                    time_delta  = timestamp - _last_spin_timestamp
+
                     _last_spin_timestamp = timestamp
-                    
-                    // cap the framerate
-                    if ( time_delta < _max_frame_duration ) capped_time_delta = time_delta
-                    else  capped_time_delta = _max_frame_duration           
-                
-                } else {
-                    _last_spin_timestamp = +new Date()
-                    capped_time_delta = _step_by
-                }
-                    
+
+                // cap the framerate
+                ;( time_delta < _max_frame_duration )? capped_time_delta = time_delta
+                : capped_time_delta = _max_frame_duration
+
+
                 // set up the next spin
                 if ( _continue_spinning_flywheel ) frame(function(timestamp){
                     spin(timestamp)
                 })
-                    
+
                 // call the callback
                 $callback(capped_time_delta)
             }
@@ -76,15 +69,17 @@
             },
             
             step: function(fake_time_delta){
+                // step abuses the fact that _spin_flywheel(undefined) means $callback's time_delta = _max_frame_duration
+                var cache_max_frame_duration = _max_frame_duration
+                                
+                if ( fake_time_delta !== undefined ) _max_frame_duration = fake_time_delta
+                else _max_frame_duration = _step_by
                 
-                var cache_step_by = _step_by
-                
-                if ( fake_time_delta !== undefined ) _step_by = fake_time_delta
                 _continue_spinning_flywheel = false
                 _spin_flywheel()
                 
                 // re-instate intial _step_by value
-                _step_by = cache_step_by
+                 _max_frame_duration = cache_max_frame_duration
                 
                 return this                     
             },
