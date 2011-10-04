@@ -15,6 +15,7 @@ See [the example](http://hughfdjackson.github.com/flywheel/example/) for a demo 
 ## API
 
 This API section is going to focus on the non-ender API.  If you're using ender, you can simply use `var flywheel = require("flywheel")`
+
 ### Basic Usage
 
 #### setting up a function to loop:
@@ -62,7 +63,7 @@ In times of exceptional load, or when a user clicks away from the window and bac
 
 #### step with an arbitrary time_delta
 
-	fw.step_by(100)	// the callback's time_delta will be '100'
+	fw.step(100)	// the callback's time_delta will be '100'
 	
 ### Feature Requests
 

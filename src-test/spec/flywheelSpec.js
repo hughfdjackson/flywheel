@@ -29,9 +29,6 @@ describe("flywheel", function(){
 
         })
         
-        
-        // TODO : Replace this tests with ones that aren't based 
-        // on how fast we can expect your js engine/machine is!!
         it("should cap at the default framerate", function(){
             
             var time_delta,
@@ -51,8 +48,6 @@ describe("flywheel", function(){
         })
         
         
-        // TODO : Replace this tests with ones that aren't based 
-        // on how fast we can expect your js engine/machine is!!
         it("should cap at any user-set framerate", function(){
             
             var time_delta,
@@ -68,7 +63,6 @@ describe("flywheel", function(){
                     expect(time_delta).toEqual(1000/20)
                 })            
         })
-        
         
     })
     
