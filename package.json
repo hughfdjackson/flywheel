@@ -1,7 +1,7 @@
 {
   "name": "flywheel",
   "description": "Game/Animation loop microlib/utility for the clientside.",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "keywords": ["game", "animation", "engine", "loop", "ender"],
   "homepage": "https://github.com/hughfdjackson/flywheel",
   "authors": ["Hugh FD Jackson"],
