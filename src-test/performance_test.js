@@ -3,6 +3,7 @@ var _step_by = 1000/60,
     $callback = function(){},
     _last_frame_timestamp,
     _continue_spinning_flywheel = true,
+    _return_obj = {},
     frame = function(timestamp){
         !function(){}(timestamp)
     }
@@ -144,3 +145,22 @@ _spin_flywheel6 = function (timestamp){
     $callback(capped_time_delta)
 }
 
+_spin_flywheel7 = function spin(timestamp){
+    var time_delta = timestamp - _last_spin_timestamp,
+        capped_time_delta
+
+        _last_spin_timestamp = timestamp
+
+    // cap the framerate
+    ;( time_delta < _max_frame_duration )? capped_time_delta = time_delta
+    : capped_time_delta = _max_frame_duration
+
+    // call the callback
+    $callback(capped_time_delta, _return_obj)
+
+    // set up the next spin
+    if ( _continue_spinning_flywheel ) frame(function(timestamp){
+        !function(){}(timestamp)
+    })
+
+}

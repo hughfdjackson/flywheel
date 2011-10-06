@@ -164,6 +164,25 @@ describe("flywheel", function(){
                         
         
         })
+        
+        it("should pass you the instance of the controller as second param", function(){
+            
+            var e = 0
+            
+            flywheel(function(time_delta, fly){
+                
+                e += 1
+                fly.stop()
+            }).start()
+            
+            waits(100)
+            
+            runs(function(){
+                
+                expect(e).toEqual(1)
+                
+            })
+        })
 
 		it("should let you redefine framerate cap whenever", function(){
             var time_delta,

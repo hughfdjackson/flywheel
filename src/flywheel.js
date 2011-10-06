@@ -24,6 +24,7 @@
             _last_spin_timestamp = +new Date(),
             _continue_spinning_flywheel = false,
             _step_by = 1000/60,
+            _return_obj,
             
         // 'private methods'
             _set_max_frame_duration_by_framerate_cap = function(framerate_cap){
@@ -39,14 +40,14 @@
                 ;( time_delta < _max_frame_duration )? capped_time_delta = time_delta
                 : capped_time_delta = _max_frame_duration
 
+                // call the callback
+                $callback(capped_time_delta, _return_obj)
 
                 // set up the next spin
                 if ( _continue_spinning_flywheel ) frame(function(timestamp){
                     spin(timestamp)
                 })
 
-                // call the callback
-                $callback(capped_time_delta)
             }
 
         // convert the given framerate cap to a duration
@@ -55,7 +56,7 @@
 
 
         // return an API object, to let users manipulate the loop
-        return {
+        return _return_obj = {
             
             start: function(){
                 _continue_spinning_flywheel = true

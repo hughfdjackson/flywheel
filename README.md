@@ -16,7 +16,7 @@ See [the example](http://hughfdjackson.github.com/flywheel/example/) for a demo 
 
 This API section is going to focus on the non-ender API.  If you're using ender, you can simply use `var flywheel = require("flywheel")`
 
-### Basic Usage
+### Most Basic Usage
 
 #### setting up a function to loop:
 
@@ -42,6 +42,18 @@ This API section is going to focus on the non-ender API.  If you're using ender,
     
 ### Extra Options
 
+#### accessing the flywheel object from within the callback
+
+Sometimes you may want to set a loop running until some condition is met, then stop the loop without storing any external reference.  This is made possible by passing the flywheel object as a second parameter to the callback:
+
+	var e = 0
+	
+	flywheel(function(time_delta, fly){
+		e += 1
+		if ( e > 100 ) fly.stop()
+		
+	}).start()
+	
 #### setting a framerate-cap
 
 In times of exceptional load, or when a user clicks away from the window and back again, the time difference between two frames can be large enough to effect any physics logic negatively.  Capping the framerate helps with this by substituting a fake value for any long delays.  There is a default cap of 30fps.
