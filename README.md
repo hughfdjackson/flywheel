@@ -5,7 +5,7 @@ Flywheel is a micro-lib (maybe even micro-micro lib) for making animation- and g
 
 ## Example
 
-See [the example](http://hughfdjackson.github.com/flywheel/example/) for a demo usage of flywheel.
+See [the example](http://hughfdjackson.github.com/flywheel/) for a demo usage of flywheel.
 
 
 ## API
