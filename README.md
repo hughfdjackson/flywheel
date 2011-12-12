@@ -1,6 +1,6 @@
 # Flywheel
 
-Flywheel is a micro-lib (maybe even micro-micro lib) for making animation- and game-loops, implementing HTML5's RequestAnimationFrame while maintaining backwards compatibility.
+Flywheel is a little lib for making animation- and game-loops, implementing HTML5's RequestAnimationFrame while maintaining backwards compatibility.
 
 
 ## Example
