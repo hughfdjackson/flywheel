@@ -42,13 +42,21 @@ This API section is going to focus on the non-ender API.  If you're using ender,
     
 ### Extra Options
 
+#### accessing the timestamp
+
+	flywheel(function(time_delta, time_stamp){
+		console.log(time_stamp)
+	}).start()
+
+N.B If the time_delta gets throttled, so does the time_stamp.  This is so that, if the framerate drop is too drastic, no time-stamp dependent logic will be suitably delayed.
+
 #### accessing the flywheel object from within the callback
 
 Sometimes you may want to set a loop running until some condition is met, then stop the loop without storing any external reference.  This is made possible by passing the flywheel object as a second parameter to the callback:
 
 	var e = 0
 	
-	flywheel(function(time_delta, fly){
+	flywheel(function(time_delta, time_stamp, fly){
 		e += 1
 		if ( e > 100 ) fly.stop()
 		

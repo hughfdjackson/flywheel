@@ -63,6 +63,18 @@ describe("flywheel", function(){
                     expect(time_delta).toEqual(1000/20)
                 })            
         })
+
+        it("must pass in a time_stamp which is equal to last_frame + td", function(){
+            
+            var last_frame, 
+                test = false,
+                fly = flywheel(function(time_delta, time_stamp){
+                    if ( last_frame + time_delta == time_stamp ) test = true
+                    last_frame = time_stamp
+                }).step().step()
+        
+            expect(test).toEqual(true)
+        })
         
     })
     
@@ -165,11 +177,11 @@ describe("flywheel", function(){
         
         })
         
-        it("should pass you the instance of the controller as second param", function(){
+        it("should pass you the instance of the controller as third param", function(){
             
             var e = 0
             
-            flywheel(function(time_delta, fly){
+            flywheel(function(time_delta, time_stamp, fly){
                 
                 e += 1
                 fly.stop()

@@ -1,17 +1,14 @@
-!function (context, undefined) {
+void function(){
     
-    // poly-fill copy-pasted from https://github.com/ded/morpheus/blob/master/src/morpheus.js
+    // polyfill for requestAnimationFrame
     var frame = function () {
-        // native animation frames
-        // http://webstuff.nfshost.com/anim-timing/Overview.html
-        // http://dev.chromium.org/developers/design-documents/requestanimationframe-implementation
-        return context.requestAnimationFrame  ||
-          context.webkitRequestAnimationFrame ||
-          context.mozRequestAnimationFrame    ||
-          context.oRequestAnimationFrame      ||
-          context.msRequestAnimationFrame     ||
+        return window.requestAnimationFrame  ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          window.oRequestAnimationFrame      ||
+          window.msRequestAnimationFrame     ||
           function ($callback) {
-            context.setTimeout(function () {
+            window.setTimeout(function () {
               $callback(+new Date())
             }, 10)
           }
@@ -34,15 +31,16 @@
                 var time_delta = timestamp - _last_spin_timestamp,
                     capped_time_delta
 
-                    _last_spin_timestamp = timestamp
 
                 // cap the framerate
                 ;( time_delta < _max_frame_duration )? capped_time_delta = time_delta
                 : capped_time_delta = _max_frame_duration
 
                 // call the callback
-                $callback(capped_time_delta, _return_obj)
+                $callback(capped_time_delta, _last_spin_timestamp + capped_time_delta, _return_obj)
 
+                _last_spin_timestamp += capped_time_delta
+                
                 // set up the next spin
                 if ( _continue_spinning_flywheel ) frame(function(timestamp){
                     spin(timestamp)
@@ -98,5 +96,6 @@
         }
     }
 
-    context["flywheel"] = flywheel
-}(this)
+    window["flywheel"] = flywheel
+
+}()
