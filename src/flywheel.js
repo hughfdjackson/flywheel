@@ -1,4 +1,4 @@
-void function(){
+void function(root){
     
     // polyfill for requestAnimationFrame
     var frame = function () {
@@ -96,6 +96,9 @@ void function(){
         }
     }
 
-    window["flywheel"] = flywheel
+    if ( typeof module !== "undefined" && module.exports )
+        module["exports"] = flywheel
+    else
+        window["flywheel"] = flywheel
 
-}()
+}(this)
