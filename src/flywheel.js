@@ -40,7 +40,7 @@ void function(root){
                 if ( capped_time_delta > 0 )
                     $callback(capped_time_delta, _last_spin_timestamp + capped_time_delta, _return_obj)
 
-                _last_spin_timestamp += capped_time_delta
+                _last_spin_timestamp = timestamp
                 
                 // set up the next spin
                 if ( _continue_spinning_flywheel ) frame(function(timestamp){
