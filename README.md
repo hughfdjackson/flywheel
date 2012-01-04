@@ -1,24 +1,20 @@
 # Flywheel
 
-Flywheel is a little lib for making animation- and game-loops, implementing HTML5's RequestAnimationFrame while maintaining backwards compatibility.
-
-
-## Example
-
-See [the example](http://hughfdjackson.github.com/flywheel/) for a demo usage of flywheel.
-
+Flywheel is a lightweight tool to help making working with HTML5's requestAnimationFrame a simpler.
 
 ## API
 
-### Most Basic Usage
+#### Setting up a loop
 
-#### setting up a function to loop:
+Flywheel takes a callback to loop over.  
+```javascript
+    
+    function animation_loop(time_delta){
+        /* do animation work here */
+    }
 
-    // Sets up flywheel to report the time difference between this frame and the last
-    var fw = flywheel(function(time_delta){
-                        console.log(time_delta)
-                    })
-
+    var fw = flywheel(time_delta)
+```
 
 #### start it spinning:
 
