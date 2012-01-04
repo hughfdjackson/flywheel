@@ -7,9 +7,9 @@ void function(root){
           window.mozRequestAnimationFrame    ||
           window.oRequestAnimationFrame      ||
           window.msRequestAnimationFrame     ||
-          function ($callback) {
+          function (callback) {
             window.setTimeout(function () {
-              $callback(+new Date())
+              callback(+new Date())
             }, 10)
           }
       }()
@@ -37,7 +37,8 @@ void function(root){
                 : capped_time_delta = _max_frame_duration
 
                 // call the callback
-                $callback(capped_time_delta, _last_spin_timestamp + capped_time_delta, _return_obj)
+                if ( capped_time_delta > 0 )
+                    $callback(capped_time_delta, _last_spin_timestamp + capped_time_delta, _return_obj)
 
                 _last_spin_timestamp += capped_time_delta
                 
