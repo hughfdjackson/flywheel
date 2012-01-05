@@ -89,8 +89,6 @@ void function(root){
         
         ret_controller.callback = callback
         ret_controller.element  = element
-
-        ret_controller.constructor()
         
         return ret_controller 
     }
