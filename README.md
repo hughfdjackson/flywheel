@@ -1,6 +1,6 @@
 # Flywheel
 
-Flywheel is a lightweight tool to help making working with HTML5's requestAnimationFrame a simpler.
+Flywheel is a lightweight tool to make working with HTML5's requestAnimationFrame simpler.
 
 ## API
 
@@ -40,7 +40,7 @@ To change a callback:
 
 ```javascript
     fw.callback = function(time_delta){
-        /* do alternative animation work here
+        /* do alternative animation work here */
     }
 ```
 
