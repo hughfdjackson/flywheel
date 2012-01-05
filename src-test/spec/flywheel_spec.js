@@ -37,7 +37,9 @@ describe("flywheel", function(){
                     time_delta = timeDelta
                 }).start()
                 
-            waits(50)
+            waitsFor(function(){
+                return time_delta == 33
+            }, 1000)
             
             runs(function(){
                 fly.stop()
@@ -56,7 +58,9 @@ describe("flywheel", function(){
                 fly.framerate_cap = 20
                 fly.start()
 
-                waits(50)
+                waitsFor(function(){
+                    return time_delta == 20
+                }, 1000)
                 
                 runs(function(){
                    fly.stop()
