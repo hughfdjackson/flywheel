@@ -6,106 +6,78 @@ Flywheel is a lightweight tool to help making working with HTML5's requestAnimat
 
 #### Setting up a loop
 
-Flywheel takes a callback to loop over.  
+Flywheel takes a callback to loop over.  `time_delta` represents the number of ms passed between this frame and the last one.  It also takes an optional element, which allows some browsers to make more optimisations to ensure smooth animation.  The loop is `stopped` by default.
+
 ```javascript
     
+    var element = document.getElementsByTagName("canvas")[0]
+
     function animation_loop(time_delta){
         /* do animation work here */
     }
 
-    var fw = flywheel(time_delta)
+    var fw = flywheel(time_delta, element)
 ```
 
-#### start it spinning:
 
+#### Starting, stopping and toggling a loop
+
+```javascript
+    
+    // start and stop 
     fw.start()
-    
-    
-#### stop it again:
-    
     fw.stop()
-    
-#### step through a single frame:
 
+    // toggle loop on and off
+    fw.toggle()
+    fw.toggle()
+```
+
+
+#### Changing the callback and element
+
+To change a callback:
+
+```javascript
+    fw.callback = function(time_delta){
+        /* do alternative animation work here
+    }
+```
+
+To change an element:
+
+```javascript
+    fw.element = document.getElementById("my_other_canvas")
+```
+
+
+#### Framerate capping:
+
+When a browser loses focus, or the loop is paused, the gap between frames can be large enough to cause problems in games (especially where acceleration or collision detection is involved).  To combat this, flywheel limits the `time_delta` value passed to the callback ( to 33ms; equivilent to ~30fps ).
+
+To change the cap:
+
+```javascript
+    fw.framerate_cap = 40
+```
+
+
+#### Step for debugging:
+
+```javascript
+
+    // step forwards a frame (assuming a time delta of 16ms; equivilent to ~60fps)
     fw.step()
-    
-    
-### Extra Options
 
-#### accessing the timestamp
-
-	flywheel(function(time_delta, time_stamp){
-		console.log(time_stamp)
-	}).start()
-
-N.B If the time_delta gets throttled, so does the time_stamp.  This is so that, if the framerate drop is too drastic, no time-stamp dependent logic will be suitably delayed.
-
-#### accessing the flywheel object from within the callback
-
-Sometimes you may want to set a loop running until some condition is met, then stop the loop without storing any external reference.  This is made possible by passing the flywheel object as a second parameter to the callback:
-
-	var e = 0
-	
-	flywheel(function(time_delta, time_stamp, fly){
-		e += 1
-		if ( e > 100 ) fly.stop()
-		
-	}).start()
-	
-#### setting a framerate-cap
-
-In times of exceptional load, or when a user clicks away from the window and back again, the time difference between two frames can be large enough to effect any physics logic negatively.  Capping the framerate helps with this by substituting a fake value for any long delays.  There is a default cap of 30fps.
-
-	// in setup.  
-	fw = flywheel(function(time_delta){
-    	console.log(time_delta)
-    ), 40) 	// if the framerate drops below 40fps, cap it
-    
-	// after setup
-	fw.set_framerate_cap(20)	// if the framerate drops below 20fps, cap it
-	
-#### changing the callback
-
-    // tries to write "blip" 60 times a second, where possible
-    fw.set_callback(function(time_delta){
-        console.log("blip")     
-    })
-
-#### step with an arbitrary time_delta
-
-	fw.step(100)	// the callback's time_delta will be '100'
-	
-### Feature Requests
-
-If you have any suggestions, feel free to add a ticket, or tweet at [@hughfdjackson](http://twitter.com/#!/hughfdjackson).
+    // step forwards with a custom time delta.
+    fw.step(30)
+```
 
 
+## Testing
 
-## Test suite and compatibility
+(Feel free to run the test suite)[http://hughfdjackson.github.com/flywheel/src-test/SpecRunner.html]
 
-The src-test directory holds a test-suite designed ensure that flywheel is working properly.  The following browsers have been used with this test suite, and passed:
+## Licensing
 
-* Opera 11
-* Safari 5
-* Firefox 4-6
-* IE 6-9
-* Chrome 13
-
-You're very welcome to [test it yourself](http://hughfdjackson.github.com/flywheel/src-test/SpecRunner.html).  If you're feeling particularly generous, you could even drop me a line to tell me if there are any problems, or if there's another web-browser I can add to the compatibility list!
-
-## Legal and Licensing
-
-This software is available under the MIT license:
-
->Copyright (c) 2011 Hugh FD Jackson (@hughfdjackson)
-
-
->Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
->The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
->THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
- 
-
-
+This software is available under the MIT license.

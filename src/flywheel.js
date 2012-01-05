@@ -23,17 +23,19 @@ void function(root){
     var controller = {
         
         // --- Attributes --- // 
-        callback:        undefined,
-        element:         undefined,
-
-        _last_timestamp: undefined,
-        _running:        false,
+        callback:           undefined,
+        element:            undefined,
+        framerate_cap:      33,
+        default_framerate:  16,
+        
+        _last_timestamp:    undefined,
+        _running:           false,
         
 
         // --- Methods --- //
         start: function(){
             this._running = true
-            this._next_frame() 
+            this._next_frame(undefined, this.default_framerate) 
             return this
         },
 
@@ -48,16 +50,31 @@ void function(root){
             return this
         },
 
-        step: function(){
-            this._next_frame()
+        step: function(time_delta){
+            this._next_frame(undefined, time_delta || this.default_framerate)
             return this
         },
-    
-        _next_frame: function(){
-        
-            request_animation_frame(function(){
-                callback
-            }, this.element)
+
+        //// (timestamp : Number || undefined [, time_delta : Number]) -> undefined
+        //
+        // This is the function that is looped over. `elapsed_time` lets methods
+        // such as step pass a time_delta directly in.
+        _next_frame: function(timestamp, time_delta){
+            
+            // calculate time_delta from timestamp
+            if ( typeof time_delta === "undefined" ) {
+                time_delta = timestamp - this._last_timestamp
+                if ( time_delta > this.framerate_cap ) time_delta = this.framerate_cap
+                this._last_timestamp = timestamp
+            }  
+            
+            // don't call function if no time has passed
+            if ( time_delta ) this.callback(time_delta)
+            
+            // set up next frame
+            if ( this._running ) 
+                request_animation_frame(this._next_frame.bind(this), this.element)
+            
         }
     }
 
@@ -82,6 +99,6 @@ void function(root){
     if ( typeof module !== "undefined" && module["exports"] )
         module["exports"] = flywheel
     else
-        window["flywheel"] = flywheel
+        root["flywheel"] = flywheel
 
 }(this)
