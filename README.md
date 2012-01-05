@@ -76,7 +76,7 @@ To change the cap:
 
 ## Testing
 
-(Feel free to run the test suite)[http://hughfdjackson.github.com/flywheel/src-test/SpecRunner.html]
+[Feel free to run the test suite](http://hughfdjackson.github.com/flywheel/src-test/SpecRunner.html)
 
 ## Licensing
 
