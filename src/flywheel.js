@@ -61,7 +61,7 @@ void function(root){
         // such as step pass a time_delta directly in.
         _next_frame: function(timestamp, time_delta){
             
-            // calculate time_delta from timestamp
+            // calculate time_delta from timestamp if a time_delta was not passed in
             if ( typeof time_delta === "undefined" ) {
                 time_delta = timestamp - this._last_timestamp
                 if ( time_delta > this.framerate_cap ) time_delta = this.framerate_cap

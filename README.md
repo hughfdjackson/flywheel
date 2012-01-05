@@ -8,6 +8,8 @@ Flywheel is a lightweight tool to make working with HTML5's requestAnimationFram
 
 Flywheel takes a callback to loop over.  `time_delta` represents the number of ms passed between this frame and the last one.  It also takes an optional element, which allows some browsers to make more optimisations to ensure smooth animation.  The loop is `stopped` by default.
 
+After setup, it returns an object that can be used to manipulate the loop.
+
 ```javascript
     
     var element = document.getElementsByTagName("canvas")[0]
