@@ -68,7 +68,7 @@ void function(root){
                 this._last_timestamp = timestamp
             }  
             
-            // don't call function if no time has passed
+            // if time_delta is 0 or NaN (etc), we may not want to call callback
             if ( time_delta ) this.callback(time_delta)
             
             // set up next frame
@@ -88,7 +88,7 @@ void function(root){
         var ret_controller = Object.create(controller)
         
         ret_controller.callback = callback
-        ret_controller.element = element
+        ret_controller.element  = element
 
         ret_controller.constructor()
         
