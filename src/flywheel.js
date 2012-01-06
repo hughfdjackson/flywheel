@@ -1,7 +1,7 @@
 void function(root){
     
     // shim for cross-browser requestAnimationFrame, 
-    // with setTimeout for a backup for older browser
+    // with setTimeout for a backup for older browsers
     var request_animation_frame = function () {
         return  window.requestAnimationFrame       
             ||  window.webkitRequestAnimationFrame 
@@ -57,8 +57,8 @@ void function(root){
 
         //// (timestamp : Number || undefined [, time_delta : Number]) -> undefined
         //
-        // This is the function that is looped over. `elapsed_time` lets methods
-        // such as step pass a time_delta directly in.
+        // This is the function that is looped over. `time_delta` lets methods
+        // such as `step` pass a time_delta directly in.
         _next_frame: function(timestamp, time_delta){
             
             // calculate time_delta from timestamp if a time_delta was not passed in
