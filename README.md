@@ -6,9 +6,13 @@ Flywheel is a lightweight tool to make working with HTML5's requestAnimationFram
 
 #### Setting up a loop
 
-Flywheel takes a callback to loop over.  `time_delta` represents the number of ms passed between this frame and the last one.  It also takes an optional element, which acts identically to the requestAnimationFrame second parameter. The loop is `stopped` by default.
+Flywheel takes two arguments:
 
-After setup, it returns an object that can be used to manipulate the loop.
+* A callback to loop over.  It passes the amount of time passed since the last frame to the callback.
+
+* A DOM element, which acts identically to the [requestAnimationFrame second parameter](https://developer.mozilla.org/en/DOM/window.requestAnimationFrame).
+
+After setup, it returns an object that can be used to manipulate the loop.  By default, the loop is not running; to start it, use the methods from the next section.
 
 ```javascript
     
