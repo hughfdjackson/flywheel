@@ -18,7 +18,7 @@ After setup, it returns an object that can be used to manipulate the loop.
         /* do animation work here */
     }
 
-    var fw = flywheel(time_delta, element)
+    var fw = flywheel(animation_loop, element)
 ```
 
 
