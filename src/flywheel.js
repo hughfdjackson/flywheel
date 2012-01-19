@@ -61,6 +61,10 @@ void function(root){
         // such as `step` pass a time_delta directly in.
         _next_frame: function(timestamp, time_delta){
             
+            // set up next frame
+            if ( this._running ) 
+                request_animation_frame(this._next_frame.bind(this), this.element)
+            
             // calculate time_delta from timestamp if a time_delta was not passed in
             if ( typeof time_delta === "undefined" ) {
                 time_delta = timestamp - this._last_timestamp
@@ -70,10 +74,6 @@ void function(root){
             
             // if time_delta is 0 or NaN (etc), we may not want to call callback
             if ( time_delta ) this.callback(time_delta)
-            
-            // set up next frame
-            if ( this._running ) 
-                request_animation_frame(this._next_frame.bind(this), this.element)
             
         }
     }
