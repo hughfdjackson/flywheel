@@ -33,17 +33,17 @@ describe("flywheel", function(){
             
             var time_delta,
                 fly = flywheel(function(timeDelta){
-                    sleep(50)
+                    sleep(100)
                     time_delta = timeDelta
                 }).start()
                 
             waitsFor(function(){
-                return time_delta == 33
+                return time_delta == 50
             }, 1000)
             
             runs(function(){
                 fly.stop()
-                expect(time_delta).toEqual(33)
+                expect(time_delta).toEqual(50)
             })
         
         })

@@ -57,9 +57,9 @@ To change an element:
 ```
 
 
-#### Framerate capping:
+#### Time Delta capping:
 
-When a page loses focus or the loop is paused, the gap between frames can be large enough to cause problems in games (especially where acceleration or collision detection is involved).  To combat this, flywheel limits the `time_delta` value passed to the callback ( to 33ms; equivilent to ~30fps ).
+When a page loses focus or the loop is paused, the gap between frames can be large enough to cause problems in games (especially where acceleration or collision detection is involved).  To combat this, flywheel limits the `time_delta` value passed to the callback ( by default, to 50ms; equivilent to ~20fps ).
 
 To change the cap:
 
