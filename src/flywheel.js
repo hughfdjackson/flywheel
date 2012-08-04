@@ -25,7 +25,7 @@ void function(root){
         // --- Attributes --- // 
         callback:           undefined,
         element:            undefined,
-        framerate_cap:      33,
+        framerate_cap:      50,
         default_framerate:  16,
         
         _last_timestamp:    undefined,
@@ -66,7 +66,7 @@ void function(root){
                 request_animation_frame(this._next_frame.bind(this), this.element)
             
             // calculate time_delta from timestamp if a time_delta was not passed in
-            if ( typeof time_delta === "undefined" ) {
+            if ( time_delta == null ) {
                 time_delta = timestamp - this._last_timestamp
                 if ( time_delta > this.framerate_cap ) time_delta = this.framerate_cap
                 this._last_timestamp = timestamp
