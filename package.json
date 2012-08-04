@@ -1,0 +1,14 @@
+{
+    "name": "flywheel"
+  , "author": "Hugh FD Jackson <@hughfdjackson>"
+  , "description": "Animation looping utility for the browser"
+  , "version": "0.1.0"
+  , "main": "src/flywheel.js"
+  , "keywords": [
+        "loop"
+      , "animation"
+      , "requestAnimationFrame"
+      , "time delta"
+     ]
+  , "license": "MIT"
+}
